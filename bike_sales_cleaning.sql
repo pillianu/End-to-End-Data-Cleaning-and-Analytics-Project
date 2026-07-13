@@ -1,4 +1,4 @@
-## Firstly I take dataset from some resource i.e.bike_sales
+## Firstly I take dataset i.e.raw_bike_sales
 
 CREATE TABLE raw_bike_sales (
     order_id INT,
@@ -48,7 +48,7 @@ WHERE store_region IS NULL;
 
 # Query 3: To clear duplicate rows
 CREATE TABLE 
-temp_bike_sales AS SELECT DISTINCT * FROM bike_sales;
+temp_bike_sales AS SELECT DISTINCT * FROM raw_bike_sales;
 
 ## Process 3: Data Analysis (Solve)
 # Query 1: Top-performing bike categories by revenue
@@ -66,8 +66,8 @@ FROM raw_bike_sales
 GROUP BY store_region
 ORDER BY regional_revenue DESC;
 
-# rank individual products using Window Functions 
+# Rank individual products using Window Functions 
 SELECT product_name, 
 RANK() OVER(ORDER BY SUM(price) DESC) AS sales_rank 
-FROM bike_sales 
+FROM raw_bike_sales 
 GROUP BY product_name;
